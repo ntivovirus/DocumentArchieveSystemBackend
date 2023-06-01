@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Correspondence extends Model
+class File extends Model
 {
     use HasFactory;
 
-    public function files()
+    public function correspondence()
     {
-        return $this->hasMany(File::class);
+        return $this->belongsTo(correspondence::class);
     }
-    
 }
- 
