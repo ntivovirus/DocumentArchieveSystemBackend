@@ -50,10 +50,10 @@ function AddFiles(Request $req)
 function updateFiles(Request $req)
  {
   // return["Zako aise"];
-  $file = Correspondence::find($req->id);
-  $file->FILE_NAME = $req->CorrespondenceNameHolder;
-  $file->FILE_DESCRIPTION = $req->CorrespondenceCodeNameHolder;
-  $file->STATUS= $req->CorrespondenceDescriptionHolder;
+  $file = File::find($req->id);
+  $file->FILE_NAME = $req->FileNameHolder;
+  $file->FILE_DESCRIPTION = $req->FileDescriptionHolder;
+  $file->STATUS= $req->FileStatusHolder;
   $file->correspondence_id=$req->CorrespondenceHolder;
 
   $result = $file->save();
@@ -94,8 +94,7 @@ return ["Status"=>"success", "File"=>$file];Response:: HTTTP_OK;
 function test($iwe)
 {
  
- $child = File::find(2);
-
+ $child = File::find(2); 
 
  return ["Status"=>"success", "data"=>$child->correspondence];
 
