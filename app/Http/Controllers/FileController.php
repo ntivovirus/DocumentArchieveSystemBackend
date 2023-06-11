@@ -47,14 +47,19 @@ function AddFiles(Request $req)
     
 }
 
-function updateFiles(Request $req)
+function updateFiles(Request $req,$id)
  {
   // return["Zako aise"];
-  $file = File::find($req->id);
+  $correspondenceName = $req->correspondenceHolder;
+  $correspondence = Correspondence::where('CORRESPONDENCE_NAME',$correspondenceName)->first();
+
+  $file = File::find($id);
   $file->FILE_NAME = $req->FileNameHolder;
   $file->FILE_DESCRIPTION = $req->FileDescriptionHolder;
-  $file->STATUS= $req->FileStatusHolder;
-  $file->correspondence_id=$req->CorrespondenceHolder;
+  $file->STATUS= $req->StatusHolder;
+  // $file->correspondence_id=$req->CorrespondenceHolder;
+  $file->correspondence_id=$correspondence->id;
+
 
   $result = $file->save();
 
@@ -86,7 +91,8 @@ function fetchFilesDetails($id)
 {
 
 $file = File::find($id);
-return ["Status"=>"success", "File"=>$file];Response:: HTTTP_OK;
+$retrivecorrespondencename = $file->correspondence->CORRESPONDENCE_NAME;
+return ["Status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
 
 }
 
