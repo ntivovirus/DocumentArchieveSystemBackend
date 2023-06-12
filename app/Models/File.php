@@ -14,4 +14,9 @@ class File extends Model
     {
         return $this->belongsTo(Correspondence::class);
     }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 }

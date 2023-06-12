@@ -87,7 +87,7 @@ function deleteFiles($id)
         }
   }
 
-function fetchFilesDetails($id)
+function fetchFileDetails($id)
 {
 
 $file = File::find($id);
@@ -102,7 +102,7 @@ function test($iwe)
  
  $child = File::find(2); 
 
- return ["Status"=>"success", "data"=>$child->correspondence];
+ return ["Status"=>"success", "data"=>$child->correspondence];         
 
 
   // if($parentCorr)

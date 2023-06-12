@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\DocumentController;
+
 
 
 
@@ -43,7 +45,7 @@ Route::post("AddFileRoute",[FileController::class,'AddFiles']);
 Route::get("ListFileRoute",[FileController::class,'ListFiles']);
 Route::put("updateFileRoute/{id}",[FileController::class,'updateFiles']);
 Route::delete("deleteFileRoute/{id?}",[FileController::class,'deleteFiles']);
-Route::get("getupdatedetail/{id}",[FileController::class,'fetchFilesDetails']);
+Route::get("getupdatedetail/{id}",[FileController::class,'fetchFileDetails']);
 
 Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
 Route::get("testparent/{id}",[FileController::class,'test']);
@@ -51,3 +53,15 @@ Route::get("testparent/{id}",[FileController::class,'test']);
 
 
 // END FILE ROUTES 
+
+// DOCUMENT ROUTES
+Route::post("AddDocumentRoute",[DocumentController::class,'AddDocuments']);
+Route::get("ListDocumentRoute",[DocumentController::class,'ListDocuments']);
+Route::put("updateDocumentRoute/{id}",[DocumentController::class,'updateFiles']);
+Route::delete("deleteDocumentRoute/{id?}",[DocumentController::class,'deleteDocuments']);
+Route::get("getdocumentupdatedetail/{id}",[Document::class,'fetchDocumentDetails']);
+
+Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
+Route::get("testparent/{id}",[FileController::class,'test']);
+
+// END DOCUMENT ROUTES
