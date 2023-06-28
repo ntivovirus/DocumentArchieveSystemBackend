@@ -7,7 +7,7 @@ use App\Models\File;
 use App\Models\Correspondence;
 
 
-use Illuminate\Http\Response;
+use Illuminate\Http\Response;  
 
 
 
@@ -95,6 +95,34 @@ $retrivecorrespondencename = $file->correspondence->CORRESPONDENCE_NAME;
 return ["Status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
 
 }
+
+// function documentAddInFileModule(Request $req)
+// {
+//   $fileName = $req->fileHolder;
+//   // $correspondenceName = $req->correspondenceHolder;
+//   $actorName = $req->actorHolder;
+
+//     $file = File::where('FILE_NAME',$fileName)->first();
+//     $user = User::where('email',$actorName)->first();
+
+//     $document = new Document;
+//     $document->DOCUMENT_NAME=$req->DocumentNameHolder;
+//     $document->FOLIO_NUMBER=$req->FolioNumberHolder;
+//     $document->file_id=$file->id;
+//     $document->user_id=$user->id;
+
+//     $Result = $document->save(); 
+
+//     if($Result)
+//       {
+//         return["status"=>"success","message"=>"Document added successfully"]; Response::HTTP_OK;
+//       }
+//       else{
+//         return["status"=>"error","message"=>"Error adding Document"]; Response::HTTP_INTERNAL_SERVER_ERROR;
+
+//       }
+
+// }
 
 
 function test($iwe)

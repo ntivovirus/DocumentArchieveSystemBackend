@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\UserController; 
 
 
 
@@ -51,17 +52,27 @@ Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'G
 Route::get("testparent/{id}",[FileController::class,'test']);
 
 
+// Add document in file
+// Route::post("AddDocumentFileRoute",[FileController::class,'documentAddInFileModule']);
+
+
 
 // END FILE ROUTES 
 
-// DOCUMENT ROUTES
+
+
+// DOCUMENT ROUTES documentAddInFileModule
+
 Route::post("AddDocumentRoute",[DocumentController::class,'AddDocuments']);
 Route::get("ListDocumentRoute",[DocumentController::class,'ListDocuments']);
-Route::put("updateDocumentRoute/{id}",[DocumentController::class,'updateFiles']);
-Route::delete("deleteDocumentRoute/{id?}",[DocumentController::class,'deleteDocuments']);
-Route::get("getdocumentupdatedetail/{id}",[Document::class,'fetchDocumentDetails']);
+Route::put("updateFileRoute/{id}",[FileController::class,'updateFiles']);
+Route::delete("deleteFileRoute/{id?}",[FileController::class,'deleteFiles']);
+Route::get("getupdatedetail/{id}",[FileController::class,'fetchFileDetails']);
 
 Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
 Route::get("testparent/{id}",[FileController::class,'test']);
+
+Route::post("testpdf",[DocumentController::class,'testUpload']);
+
 
 // END DOCUMENT ROUTES

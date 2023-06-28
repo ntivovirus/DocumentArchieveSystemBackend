@@ -14,7 +14,7 @@ class Document extends Model
         return $this->belongsTo(File::class);
     }
 
-    public function users()
+    public function users() 
     {
         return $this->belongsTo(User::class);
     }

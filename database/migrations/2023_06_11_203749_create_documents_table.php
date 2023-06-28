@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('DOCUMENT_NAME');
             $table->integer('FOLIO_NUMBER');
+            $table->string('DOC_PATH');
             $table->unsignedBigInteger('file_id');
-            $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('user_id');
             $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
