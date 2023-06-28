@@ -13,7 +13,7 @@ class File extends Model
     public function correspondence()   
     {
         return $this->belongsTo(Correspondence::class);
-    }
+    } 
 
     public function documents()
     {
