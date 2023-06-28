@@ -9,7 +9,7 @@ class Document extends Model
 {
     use HasFactory;
 
-    public function files()
+    public function file()
     {
         return $this->belongsTo(File::class);
     }
@@ -19,3 +19,4 @@ class Document extends Model
         return $this->belongsTo(User::class);
     }
 }
+ 

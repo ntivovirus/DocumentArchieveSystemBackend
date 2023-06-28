@@ -15,7 +15,22 @@ class DocumentController extends Controller
     function ListDocuments()
 {
     // return Correspondence::all();
-    return Document::orderByDesc('id')->get();
+    // return Document::orderByDesc('id')->get(); //OG 
+
+    //CODE FOR DISPLAYING FILE NAME IN TABLE
+
+    // $documents = Document::orderByDesc('id');
+
+    // return $documents->with('file:id,FILE_NAME,STATUS,correspondence_id')->get();
+
+    //END CODE FOR DISPLAYING FILE NAME IN TABLE
+
+    $documents = Document::orderByDesc('id');
+
+    $comments = $user->posts()->with('comments')->get()->pluck('comments')->flatten();
+    $comments = $user->posts()->with('comments')->get()->pluck('comments')->flatten();
+
+
 
 }
 

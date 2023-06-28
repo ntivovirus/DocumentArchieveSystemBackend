@@ -10,7 +10,7 @@ class File extends Model
 {
     use HasFactory;
 
-    public function correspondence()   
+    public function correspondence()    
     {
         return $this->belongsTo(Correspondence::class);
     } 
