@@ -7,9 +7,10 @@ use App\Models\Document;
 use App\Models\File;
 use App\Models\User; 
 use App\Models\Correspondence; 
+use Illuminate\Support\Facades\Storage;
 
 
-class DocumentController extends Controller  
+class DocumentController extends Controller   
 {
     //
     function ListDocuments()
@@ -18,11 +19,11 @@ class DocumentController extends Controller
     $documents = Document::orderByDesc('id');
     $documents->with('file:id,FILE_NAME,STATUS,correspondence_id');
 
-    return $documents->with('file.correspondence:id,CORRESPONDENCE_NAME')->get();
+    return $documents->with('file.correspondence:id,CORRESPONDENCE_NAME')->get(); 
 
 }
 
-public function AddDocuments(Request $req)
+public function AddDocuments(Request $req) // FUNCTION USED IN FILE MODULE
 {
 
           $fileName = $req->FileHolder;
@@ -77,6 +78,44 @@ if($req->hasFile('DocPathHolder')) {
     return response()->json(['message' => 'No file uploaded'], 400);
      
 }
+
+
+function fetchDocumentDetails($id)
+{
+
+$document = Document::find($id);
+$retrivefilename = $document->file->FILE_NAME;
+
+// $retrivecorrespondencename = $file->correspondence->CORRESPONDENCE_NAME;
+// return ["Status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
+return ["Status"=>"success", "Document"=>$document, "updateFileCorrespondanceNameSelect"=>$retrivefilename];Response:: HTTTP_OK;
+
+
+}
+
+
+function deleteDocuments($id) 
+  { 
+    $document= Document::find($id);
+    $result = $document->delete();  
+    
+
+      if($result) 
+        {
+          return ["status"=>"success", "message"=>"Document Deleted Successfully"]; Response::HTTP_OK;
+        }
+        else 
+        {
+          return ["status"=> "error", "message"=> "Error on Deleting"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+        }
+  }
+
+
+
+
+
+
+
 
 function testUpload(Request $reqt)
 {

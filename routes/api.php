@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 
 
 
-
+ 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -61,7 +61,7 @@ Route::get("testparent/{id}",[FileController::class,'test']);
 
 
 
-// DOCUMENT ROUTES documentAddInFileModule
+// DOCUMENT ROUTES IN FILE MODULE
 
 Route::post("AddDocumentRoute",[DocumentController::class,'AddDocuments']);
 Route::get("ListDocumentRoute",[DocumentController::class,'ListDocuments']);
@@ -76,3 +76,22 @@ Route::post("testpdf",[DocumentController::class,'testUpload']);
 
 
 // END DOCUMENT ROUTES
+
+
+//DOCUMENT ROUTES IN DOCUMENTS MODULE 
+Route::post("AddFileRoute",[FileController::class,'AddFiles']);
+Route::get("ListFileRoute",[FileController::class,'ListFiles']);
+Route::put("updateFileRoute/{id}",[FileController::class,'updateFiles']);
+Route::delete("deleteDocumentRoute/{id?}",[DocumentController::class,'deleteDocuments']);
+Route::get("getdocumentupdatedetail/{id}",[DocumentController::class,'fetchDocumentDetails']);
+
+Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
+Route::get("testparent/{id}",[FileController::class,'test']);
+
+
+// Add document in file
+// Route::post("AddDocumentFileRoute",[FileController::class,'documentAddInFileModule']);
+ 
+
+
+// END DOCUMENT ROUTES IN DOCUMENTS MODULE 

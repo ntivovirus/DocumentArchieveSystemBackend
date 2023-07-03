@@ -8,8 +8,8 @@ use App\Models\File;
 
 use Illuminate\Http\Response;
 
-
-class CorrespondenceController extends Controller
+ 
+class CorrespondenceController extends Controller 
 {
     //
     //CORRESPONDENCES
