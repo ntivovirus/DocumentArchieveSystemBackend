@@ -97,7 +97,11 @@ return ["Status"=>"success", "Document"=>$document, "updateFileCorrespondanceNam
 function deleteDocuments($id) 
   { 
     $document= Document::find($id);
-    $result = $document->delete();  
+    $retrievefilepath = $document->DOC_PATH;
+    Storage::delete($retrievefilepath);  
+
+    $result = $document->delete();
+
     
 
       if($result) 
