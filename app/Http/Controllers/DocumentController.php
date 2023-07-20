@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\User; 
 use App\Models\Correspondence; 
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class DocumentController extends Controller   
@@ -46,11 +47,11 @@ public function AddDocuments(Request $req) // FUNCTION USED IN FILE MODULE
        
 
           
-  //         console.log($file);
+  //         console.log($file); 
 
 if($req->hasFile('DocPathHolder')) {
 
-    $path = $req->file('DocPathHolder')->store('ArchivedDocuments');
+    $path = $req->file('DocPathHolder')->store('BTDC-ArchivedDocuments');
 
 
     // console.log($doc);
@@ -84,11 +85,11 @@ function fetchDocumentDetails($id)
 {
 
 $document = Document::find($id);
-$retrivefilename = $document->file->FILE_NAME;
+$retrivedocname = $document->file->FILE_NAME;
 
 // $retrivecorrespondencename = $file->correspondence->CORRESPONDENCE_NAME;
 // return ["Status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
-return ["Status"=>"success", "Document"=>$document, "updateFileCorrespondanceNameSelect"=>$retrivefilename];Response:: HTTTP_OK;
+return ["Status"=>"success", "Document"=>$document, "updateFileCorrespondanceNameSelect"=>$retrivedocname];Response:: HTTTP_OK;
 
 
 }
@@ -97,8 +98,8 @@ return ["Status"=>"success", "Document"=>$document, "updateFileCorrespondanceNam
 function deleteDocuments($id) 
   { 
     $document= Document::find($id);
-    $retrievefilepath = $document->DOC_PATH;
-    Storage::delete($retrievefilepath);  
+    $retrievedocpath = $document->DOC_PATH;
+    Storage::delete($retrievedocpath);  
 
     $result = $document->delete();
 
@@ -112,6 +113,53 @@ function deleteDocuments($id)
         {
           return ["status"=> "error", "message"=> "Error on Deleting"];Response:: HTTP_INTERNAL_SERVER_ERROR;
         }
+  }
+
+  function downloadDocuments($id) 
+  { 
+   
+    $document = Document::find($id); 
+    
+    if ($document) {
+        $retrievedocname = $document->DOCUMENT_NAME;
+        $retrievedocpath = $document->DOC_PATH;
+
+        if(Storage::exists($retrievedocpath)) {
+          $path = Storage::path($retrievedocpath);
+          
+          return response()->download($path.$retrievedocpath);
+            
+        }
+        return ["status"=> "error", "message"=> "Document not found"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+    }
+    
+    abort(404, 'Document not found');
+
+  }
+
+  function previewDocuments($id) 
+  { 
+   
+    $document = Document::find($id);
+    
+    if ($document) {
+        $retrievedocname = $document->DOCUMENT_NAME;
+        $retrievedocpath = $document->DOC_PATH;
+
+        if(Storage::exists($retrievedocpath)) {
+
+          $filePath = storage_path($retrievedocpath);
+          $headers= header(['Content-Type','text/plain']);
+          
+          return response()->file($retrievedocpath);
+    
+        
+        }
+        return ["status"=> "error", "message"=> "Document not found"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+    }
+    
+    abort(404, 'Document not found');
+
   }
 
 

@@ -21,16 +21,31 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) { 
     return $request->user();
 });
+
+//USER ROUTES 
+Route::post("AddUserRoute",[UserController::class,'AddUsers']);
+Route::get("ListUserRoute",[UserController::class,'ListUsers']);
+Route::put("updateUserRoute/{id}",[UserController::class,'updateUsers']);
+Route::delete("deleteUserRoute/{id?}",[UserController::class,'deleteUsers']);
+Route::get("getUserupdatedetail/{id}",[UserController::class,'fetchUserDetails']);
+
+Route::get("testchild/{id}",[CorrespondenceController::class,'test']);
+// Route::get("testchild2/{id},{name}",[CorrespondenceController::class,'test2']);
+// Route::get("testchild2/{nam}",[CorrespondenceController::class,'test2']);
+
+
+
+// END USER ROUTES 
 
 //CORRESPONDENCE ROUTES 
 Route::post("AddCorrespondenceRoute",[CorrespondenceController::class,'AddCorrespondences']);
 Route::get("ListCorrespondenceRoute",[CorrespondenceController::class,'ListCorrespondences']);
 Route::put("updateCorrespondenceRoute/{id}",[CorrespondenceController::class,'updateCorrespondences']);
 Route::delete("deleteCorrespondenceRoute/{id?}",[CorrespondenceController::class,'deleteCorrespondences']);
-Route::get("getupdatedetail/{id}",[CorrespondenceController::class,'fetchCorrespondenceDetails']);
+Route::get("getCorrespondenceupdatedetail/{id}",[CorrespondenceController::class,'fetchCorrespondenceDetails']);
 
 Route::get("testchild/{id}",[CorrespondenceController::class,'test']);
 // Route::get("testchild2/{id},{name}",[CorrespondenceController::class,'test2']);
@@ -46,7 +61,7 @@ Route::post("AddFileRoute",[FileController::class,'AddFiles']);
 Route::get("ListFileRoute",[FileController::class,'ListFiles']);
 Route::put("updateFileRoute/{id}",[FileController::class,'updateFiles']);
 Route::delete("deleteFileRoute/{id?}",[FileController::class,'deleteFiles']);
-Route::get("getupdatedetail/{id}",[FileController::class,'fetchFileDetails']);
+Route::get("getFileupdatedetail/{id}",[FileController::class,'fetchFileDetails']);
 
 Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
 Route::get("testparent/{id}",[FileController::class,'test']);
@@ -84,6 +99,9 @@ Route::get("ListFileRoute",[FileController::class,'ListFiles']);
 Route::put("updateFileRoute/{id}",[FileController::class,'updateFiles']);
 Route::delete("deleteDocumentRoute/{id?}",[DocumentController::class,'deleteDocuments']);
 Route::get("getdocumentupdatedetail/{id}",[DocumentController::class,'fetchDocumentDetails']);
+Route::get("downloadDocumentRoute/{id}",[DocumentController::class,'downloadDocuments']);
+Route::get("previewDocumentRoute/{id}",[DocumentController::class,'previewDocuments']);
+
 
 Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
 Route::get("testparent/{id}",[FileController::class,'test']);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\File;
+use App\Models\File; 
 use App\Models\Correspondence;
 
 
@@ -22,7 +22,7 @@ function ListFiles()
    
     $file = File::orderByDesc('id');
 
-    return $file->with('correspondence')->get();
+    return $file->with('correspondence')->get(); 
     
 
 }
@@ -80,7 +80,10 @@ function updateFiles(Request $req,$id)
 function deleteFiles($id) 
   { 
     $file= File::find($id);
-    $result = $file->delete();  
+
+    if($file)
+    {
+      $result = $file->delete();  
 
       if($result) 
         {
@@ -90,15 +93,29 @@ function deleteFiles($id)
         {
           return ["status"=> "error", "message"=> "Error on Deleting"];Response:: HTTP_INTERNAL_SERVER_ERROR;
         }
+
+    }
+    else{
+      return ["status"=> "error", "message"=> "File Not Found"];
+    }
+    
   }
 
 function fetchFileDetails($id)
 {
 
-$file = File::find($id);
-$retrivecorrespondencename = $file->correspondence->CORRESPONDENCE_NAME;
-return ["Status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
+    $file = File::find($id);
 
+    if($file)
+    {
+      $retrivecorrespondencename = $file->correspondence->CORRESPONDENCE_NAME;
+      return ["Status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
+    }
+    else{
+      return ["status"=> "error", "message"=> "File Not Found"];
+    }
+    
+    
 }
 
 function test($iwe)
