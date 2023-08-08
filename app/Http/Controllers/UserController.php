@@ -4,10 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;  
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     //
+    function Login(Request $reqs)
+    {
+      $emailfind = $reqs->userLoginEmailHolder;
+      $passwordfind = $reqs->userLoginEmailHolder;
+
+
+
+      $searchUserEmail = User::where('email',$emailfind)->first();
+
+      if(Hash::check($reqs('password'),$searchUserEmail->getAuthPassword()))
+      {
+        return ['token'=> $searchUserEmail->createToken(time())->plainTextToken];
+
+      }
+
+      // if($searchUserEmail)
+      // {
+
+      // $passwordfind = $reqs->userLoginPasswordHolder;
+
+      // $searchUserPassword = User::where('password',$passwordfind)->first();
+
+      //   return [$searchUserPassword];
+      // }
+      // else {
+      //   return["status"=>"error","message"=>"Wrong Password or User Email"]; Response::HTTP_INTERNAL_SERVER_ERROR;
+        
+      // }
+
+
+
+    }
+
+
+
     function AddUsers(Request $req)
     {
         $getemail = $req->UserEmailHolder;
@@ -21,7 +57,7 @@ class UserController extends Controller
             $user = new User;
             $user->name=$req->UserfullnameHolder;
             $user-> email=$req->UserEmailHolder;
-            $user->password=$req->UserPasswordHolder;
+            $user->password=Hash::make($req->UserPasswordHolder);
             $user->role=$req->UserRoleHolder;
 
             $result = $user->save();
