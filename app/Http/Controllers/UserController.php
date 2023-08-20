@@ -11,18 +11,31 @@ class UserController extends Controller
     //
     function Login(Request $reqs)
     {
-      $emailfind = $reqs->userLoginEmailHolder;
-      $passwordfind = $reqs->userLoginEmailHolder;
+      // $emailfind = $reqs->userLoginEmailHolder;
+      // $passwordfind = $reqs->userLoginEmailHolder;
 
 
 
-      $searchUserEmail = User::where('email',$emailfind)->first();
+      $user = User::where('email',$reqs->email)->first();
 
-      if(Hash::check($reqs('password'),$searchUserEmail->getAuthPassword()))
-      {
-        return ['token'=> $searchUserEmail->createToken(time())->plainTextToken];
-
+      if(!$user || !Hash::check($reqs->password,$user->password)) {
+        return response(['message' => ['These credentials do not match our records.']],404);
       }
+
+      $token = $user->createToken('my-app-token')->plainTextToken;
+
+      $response = [
+        'user' => $user,
+        'token' => $token
+      ]; 
+
+      return response ($response, 201);
+
+      // if(Hash::check($reqs('password'),$searchUserEmail->getAuthPassword()))
+      // {
+      //   return ['token'=> $searchUserEmail->createToken(time())->plainTextToken];
+
+      // }
 
       // if($searchUserEmail)
       // {
