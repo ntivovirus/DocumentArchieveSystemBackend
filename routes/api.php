@@ -29,6 +29,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware'=> 'auth:sanctum'], function() {
     //Securing API's to run only when token is generated
 
+});
+
+
     
 //USER ROUTES 
 Route::post("AddUserRoute",[UserController::class,'AddUsers']);
@@ -120,7 +123,6 @@ Route::get("testparent/{id}",[FileController::class,'test']);
 // END DOCUMENT ROUTES IN DOCUMENTS MODULE 
 
 
-});
 
 
 //LOGIN ROUTE OUTSIDE OF GROUP MIDDLEWARE
