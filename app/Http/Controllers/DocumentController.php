@@ -29,40 +29,22 @@ public function AddDocuments(Request $req) // FUNCTION USED IN FILE MODULE
 
           $fileName = $req->FileHolder;
           // $docDoc = $req->DocPathHolder;
-          // $actorName = $req->actorHolder;  //TO BE ENABLED WHEN LOGIN IS ADDED
-          
-          // $filenames =[];
-          // if($req->hasFile('DocPathHolder')) {
-
-          //   $files = $req->file('DocPathHolder');
-
-          //   return["status"=>"success","message"=>'has file'];
-            
-          // }
-          // return["status"=>"success","message"=>$filenames];
-         
+          $actorName = $req->actorHolder;  //TO BE ENABLED WHEN LOGIN IS ADDED
 
           $file = File::where('FILE_NAME',$fileName)->first();
-
-       
-
           
-  //         console.log($file); 
-
 if($req->hasFile('DocPathHolder')) {
 
     $path = $req->file('DocPathHolder')->store('BTDC-ArchivedDocuments');
 
-
-    // console.log($doc);
-    // $user = User::where('email',$actorName)->first(); //TO BE ENABLED WHEN LOGIN IS ADDED
+    $user = $actorName; //TO BE ENABLED WHEN LOGIN IS ADDED
 
     $document = new Document;
     $document->DOCUMENT_NAME=$req->DocumentNameHolder;
     $document->FOLIO_NUMBER=$req->FolioNumberHolder;
     $document->DOC_PATH=$path;
     $document->file_id=$file->id;
-    // $document->user_id=$user->id;   //TO BE ENABLED WHEN LOGIN IS ADDED
+    $document->user_id=$user;   //TO BE ENABLED WHEN LOGIN IS ADDED
 
     $Result = $document->save(); 
 

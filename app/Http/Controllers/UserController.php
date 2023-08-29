@@ -31,28 +31,7 @@ class UserController extends Controller
 
       return response ($response, 201);
 
-      // if(Hash::check($reqs('password'),$searchUserEmail->getAuthPassword()))
-      // {
-      //   return ['token'=> $searchUserEmail->createToken(time())->plainTextToken];
-
-      // }
-
-      // if($searchUserEmail)
-      // {
-
-      // $passwordfind = $reqs->userLoginPasswordHolder;
-
-      // $searchUserPassword = User::where('password',$passwordfind)->first();
-
-      //   return [$searchUserPassword];
-      // }
-      // else {
-      //   return["status"=>"error","message"=>"Wrong Password or User Email"]; Response::HTTP_INTERNAL_SERVER_ERROR;
-        
-      // }
-
-
-
+    
     }
 
 
