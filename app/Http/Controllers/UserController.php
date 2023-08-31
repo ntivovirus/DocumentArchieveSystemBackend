@@ -34,7 +34,11 @@ class UserController extends Controller
     
     }
 
+    function DashUserCount()
+    { 
+      return User::count('id');
 
+    }
 
     function AddUsers(Request $req)
     {

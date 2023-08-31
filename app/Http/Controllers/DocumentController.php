@@ -9,22 +9,41 @@ use App\Models\User;
 use App\Models\Correspondence; 
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-
+ 
 
 class DocumentController extends Controller   
 {
     //
-    function ListDocuments()
-{
-   
-    $documents = Document::orderByDesc('id');
-    $documents->with('file:id,FILE_NAME,STATUS,correspondence_id');
 
-    return $documents->with('file.correspondence:id,CORRESPONDENCE_NAME')->get(); 
+
+    function DashDocumentCount()
+{
+  return Document::count('id');
 
 }
 
-public function AddDocuments(Request $req) // FUNCTION USED IN FILE MODULE
+    function ListDocuments()
+{ 
+
+  $documents = Document::orderByDesc('id')->with(['user:id,name','file:id,FILE_NAME,STATUS,correspondence_id', 'file.correspondence:id,CORRESPONDENCE_NAME'])->get();
+
+  return $documents;
+
+   ////////////// A BLOCK OF WORKING CODE ALSO BUT PREFFERED THE SINGLE LINE CODE ////////////////////
+                  // $documents = Document::orderByDesc('id'); //OG
+                  // $documents->with('file:id,FILE_NAME,STATUS,correspondence_id'); //OG
+                  // $documents->with('user:id,name'); //OG
+
+                  //return $documents;
+
+    ////////////// END OF A BLOCK OF WORKING CODE ALSO BUT PREFFERED THE SINGLE LINE CODE ////////////////////
+
+   
+
+
+}
+
+function AddDocuments(Request $req) // FUNCTION USED IN FILE MODULE
 {
 
           $fileName = $req->FileHolder;

@@ -48,6 +48,21 @@ Route::get("testchild/{id}",[CorrespondenceController::class,'test']);
 
 // END USER ROUTES 
 
+//DASHBOARD ROUTES 
+Route::get("countUsersRoute",[UserController::class,'DashUserCount']);
+Route::get("countDocumentsRoute",[DocumentController::class,'DashDocumentCount']);
+Route::get("countFilesRoute",[FileController::class,'DashFileCount']);
+Route::get("countCorrespondencesRoute",[correspondenceController::class,'DashCorrespondenceCount']);
+
+
+
+//END DASHBOARD ROUTES 
+
+
+
+
+
+
 //CORRESPONDENCE ROUTES 
 Route::post("AddCorrespondenceRoute",[CorrespondenceController::class,'AddCorrespondences']);
 Route::get("ListCorrespondenceRoute",[CorrespondenceController::class,'ListCorrespondences']);
@@ -102,17 +117,17 @@ Route::post("testpdf",[DocumentController::class,'testUpload']);
 
 
 //DOCUMENT ROUTES IN DOCUMENTS MODULE 
-Route::post("AddFileRoute",[FileController::class,'AddFiles']);
-Route::get("ListFileRoute",[FileController::class,'ListFiles']);
-Route::put("updateFileRoute/{id}",[FileController::class,'updateFiles']);
+// Route::post("AddFileRoute",[FileController::class,'AddFiles']);
+// Route::get("ListFileRoute",[FileController::class,'ListFiles']);
+// Route::put("updateFileRoute/{id}",[FileController::class,'updateFiles']);
 Route::delete("deleteDocumentRoute/{id?}",[DocumentController::class,'deleteDocuments']);
 Route::get("getdocumentupdatedetail/{id}",[DocumentController::class,'fetchDocumentDetails']);
 Route::get("downloadDocumentRoute/{id}",[DocumentController::class,'downloadDocuments']);
 Route::get("previewDocumentRoute/{id}",[DocumentController::class,'previewDocuments']);
 
 
-Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
-Route::get("testparent/{id}",[FileController::class,'test']);
+// Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
+// Route::get("testparent/{id}",[FileController::class,'test']);
 
 
 // Add document in file

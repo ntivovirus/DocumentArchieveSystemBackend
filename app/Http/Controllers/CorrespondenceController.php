@@ -12,7 +12,13 @@ use Illuminate\Http\Response;
 class CorrespondenceController extends Controller 
 {
     // 
-    //CORRESPONDENCES
+
+function DashCorrespondenceCount()
+{
+  return Correspondence::count('id');
+
+}
+
 function ListCorrespondences()
 {
     // return Correspondence::all();

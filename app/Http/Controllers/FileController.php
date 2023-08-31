@@ -14,7 +14,13 @@ use Illuminate\Http\Response;
 class FileController extends Controller
 {
     //
-       //CORRESPONDENCES
+
+    function DashFileCount()
+    {
+      return File::count('id');
+    
+    }
+
 function ListFiles()
 {
     // return Correspondence::all();
