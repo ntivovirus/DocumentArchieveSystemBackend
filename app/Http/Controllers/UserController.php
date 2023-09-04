@@ -14,23 +14,36 @@ class UserController extends Controller
       // $emailfind = $reqs->userLoginEmailHolder;
       // $passwordfind = $reqs->userLoginEmailHolder;
 
-
-
       $user = User::where('email',$reqs->email)->first();
 
-      if(!$user || !Hash::check($reqs->password,$user->password)) {
-        return response(['message' => ['These credentials do not match our records.']],404);
+      if($user){
+
+        if(!$user || !Hash::check($reqs->password,$user->password)) {
+          // return response(['status'=>['error'],'message' => ['Wrong Password, Please rethink']],404);
+        return ["status"=>"error", "message" => "Wrong Password"];
+
+        }
+
+        else{
+          
+        $token = $user->createToken('my-app-token')->plainTextToken;
+
+        $response = [
+          'user' => $user,
+          'token' => $token,
+          'message'=>'You are Logged in Successfully'
+        ]; 
+
+        return response ($response, 201);
+
+        }
+
       }
+      else{
+       
+        return ["status"=>"error", "message" => "This is not a registered email address in our system"];
 
-      $token = $user->createToken('my-app-token')->plainTextToken;
-
-      $response = [
-        'user' => $user,
-        'token' => $token
-      ]; 
-
-      return response ($response, 201);
-
+      }
     
     }
 
@@ -47,7 +60,9 @@ class UserController extends Controller
 
         if($searchemailexistence)
         {
-            return["status"=>"error","message"=>"Email Already Used"]; Response::HTTP_INTERNAL_SERVER_ERROR;
+            // return["status"=>"error","message"=>"Email Already Used"]; Response::HTTP_INTERNAL_SERVER_ERROR;
+            return ["status"=>"error", "message" => "Email Already Used"];
+
         }
         else{
             $user = new User;
@@ -63,7 +78,9 @@ class UserController extends Controller
                 return["status"=>"success","message"=>"User added successfully"]; Response::HTTP_OK;
             }
             else{
-                    return["status"=>"error","message"=>"Error adding User"]; Response::HTTP_INTERNAL_SERVER_ERROR;
+                    // return["status"=>"error","message"=>"Error adding User"]; Response::HTTP_INTERNAL_SERVER_ERROR;
+                return ["status"=>"error", "message" => "Error adding User"];
+
             }
         }
                 
@@ -80,7 +97,7 @@ class UserController extends Controller
 {
 
 $user = User::find($id);
-return ["Status"=>"success", "User"=>$user];Response:: HTTTP_OK;
+return ["status"=>"success", "User"=>$user];Response:: HTTTP_OK;
 
 }
 
@@ -107,7 +124,7 @@ function updateUsers(Request $req)
   function deleteUsers($id) 
   { 
     $user= User::find($id);
-    $result = $user->delete();  
+    $result = $user->delete();   
 
       if($result) 
         {

@@ -46,7 +46,7 @@ function AddCorrespondences(Request $req)
     
 }
 
-function updateCorrespondences(Request $req)
+function updateCorrespondences(Request $req) 
  {
   // return["Zako aise"];
   $correspondence = Correspondence::find($req->id);

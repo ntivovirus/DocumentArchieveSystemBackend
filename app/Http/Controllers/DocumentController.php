@@ -77,7 +77,8 @@ if($req->hasFile('DocPathHolder')) {
       }
 
   }
-    return response()->json(['message' => 'No file uploaded'], 400);
+    return response()->json(['status'=>'error', 'message' => 'No file uploaded'], 400);
+
      
 }
 

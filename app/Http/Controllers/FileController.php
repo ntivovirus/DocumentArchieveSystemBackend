@@ -115,7 +115,7 @@ function fetchFileDetails($id)
     if($file)
     {
       $retrivecorrespondencename = $file->correspondence->CORRESPONDENCE_NAME;
-      return ["Status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
+      return ["status"=>"success", "File"=>$file, "updateFileCorrespondanceNameSelect"=>$retrivecorrespondencename];Response:: HTTTP_OK;
     }
     else{
       return ["status"=> "error", "message"=> "File Not Found"];
