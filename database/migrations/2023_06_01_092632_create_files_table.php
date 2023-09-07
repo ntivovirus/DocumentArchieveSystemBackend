@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('STATUS');
             $table->unsignedBigInteger('correspondence_id');
             $table->foreign('correspondence_id')->references('id')->on('correspondences')->onDelete('cascade');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
 

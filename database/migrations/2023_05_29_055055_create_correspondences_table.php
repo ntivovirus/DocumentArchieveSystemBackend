@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('CORRESPONDENCE_NAME');
             $table->string('CORRESPONDENCE_CODENAME');
             $table->string('CORRESPONDENCE_DESCRIPTION');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

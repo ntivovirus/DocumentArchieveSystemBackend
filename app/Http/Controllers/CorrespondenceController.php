@@ -33,6 +33,8 @@ function AddCorrespondences(Request $req)
     $correspondence->CORRESPONDENCE_CODENAME = $req->CorrespondenceCodeNameHolder;
     $correspondence->CORRESPONDENCE_DESCRIPTION=$req->CorrespondenceDescriptionHolder;
 
+    
+
     $Result = $correspondence->save(); 
 
     if($Result)
@@ -44,6 +46,7 @@ function AddCorrespondences(Request $req)
 
       }
     
+    
 }
 
 function updateCorrespondences(Request $req) 
@@ -54,7 +57,7 @@ function updateCorrespondences(Request $req)
   $correspondence->CORRESPONDENCE_CODENAME = $req->CorrespondenceCodeNameHolder;
   $correspondence->CORRESPONDENCE_DESCRIPTION = $req->CorrespondenceDescriptionHolder;
 
-  $result = $correspondence->save();
+    $result = $correspondence->save();
 
     if($result) {
       return ["status"=>"success", "message"=>"Correspondence Updated successfully"];
@@ -62,7 +65,7 @@ function updateCorrespondences(Request $req)
       else {
         return ["status"=>"error", "message"=>"Error on Correspondence update"];
       }
-      
+
   }
 
 function deleteCorrespondences($id) 

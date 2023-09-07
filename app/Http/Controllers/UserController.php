@@ -25,18 +25,36 @@ class UserController extends Controller
         }
 
         else{
-          
-        $token = $user->createToken('my-app-token')->plainTextToken;
 
-        $response = [
-          'user' => $user,
-          'token' => $token,
-          'message'=>'You are Logged in Successfully'
-        ]; 
+        $checkUserAccountstatus =$user->account_status;
 
-        return response ($response, 201);
+        if($checkUserAccountstatus==='DEACTIVATED')
+        {
+        return ["status"=>"error", "message" => "Your Account is Deactivated !!!. You no longer have access to this system"];
+
 
         }
+        else if($checkUserAccountstatus==='ACTIVE')
+        {
+          $token = $user->createToken('my-app-token')->plainTextToken;
+
+          $response = [
+            'user' => $user,
+            'token' => $token,
+            'message'=>'You are Logged in Successfully'
+          ]; 
+  
+          return response ($response, 201);
+  
+          }
+          else{
+
+          return ["status"=>"error", "message" => "Opps! Something Wrong at our end"];
+
+          }
+
+        }
+        
 
       }
       else{
@@ -70,6 +88,7 @@ class UserController extends Controller
             $user-> email=$req->UserEmailHolder;
             $user->password=Hash::make($req->UserPasswordHolder);
             $user->role=$req->UserRoleHolder;
+            $user->account_status=$req->UserStatusHolder;
 
             $result = $user->save();
 
@@ -109,6 +128,8 @@ function updateUsers(Request $req)
   $user->name = $req->UserFullNameHolder;
   $user->email = $req->UserEmailHolder;
   $user->role = $req->UserRoleHolder;
+  $user->account_status = $req->UserStatusHolder;
+
 
   $result = $user->save();
 

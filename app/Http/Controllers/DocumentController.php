@@ -51,6 +51,13 @@ function AddDocuments(Request $req) // FUNCTION USED IN FILE MODULE
           $actorName = $req->actorHolder;  //TO BE ENABLED WHEN LOGIN IS ADDED
 
           $file = File::where('FILE_NAME',$fileName)->first();
+          $CheckFileStatus = $file->STATUS; // checking file status before adding document
+
+          if($CheckFileStatus==='CLOSED'){
+        return["status"=>"info","message"=>"File is CLOSED. You cannot add a document in a Closed File, To add a Document in this file please ask the Administrator to change the File state to OPEN"]; 
+
+          }
+          else{
           
 if($req->hasFile('DocPathHolder')) {
 
@@ -62,24 +69,30 @@ if($req->hasFile('DocPathHolder')) {
     $document->DOCUMENT_NAME=$req->DocumentNameHolder;
     $document->FOLIO_NUMBER=$req->FolioNumberHolder;
     $document->DOC_PATH=$path;
-    $document->file_id=$file->id;
+    $document->file_id=$file->id; 
     $document->user_id=$user;   //TO BE ENABLED WHEN LOGIN IS ADDED
+
+    if($document===''){
+      return["status"=>"error","message"=>"Please Add particulars for document"];
+
+
+    }
 
     $Result = $document->save(); 
 
-    if($Result)
-      {
+    if($Result){
+      
         return["status"=>"success","message"=>"Document added successfully"]; Response::HTTP_OK;
       }
-      else{
+      else {
         return["status"=>"error","message"=>"Error adding Document"]; Response::HTTP_INTERNAL_SERVER_ERROR;
 
       }
 
   }
-    return response()->json(['status'=>'error', 'message' => 'No file uploaded'], 400);
+    return response()->json(['status'=>'error', 'message' => 'Please select a Document to uploaded']);
 
-     
+}
 }
 
 

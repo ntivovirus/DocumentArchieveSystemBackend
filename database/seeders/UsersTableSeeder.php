@@ -22,7 +22,9 @@ class UsersTableSeeder extends Seeder
             'name' =>'Virus Kampe',
             'email' => 'virus@gmail.com',
             'password'=> Hash::make('1234'),
-            'role'=>'Administrator'
+            'role'=>'Administrator',
+            'account_status'=>'ACTIVE'
+
         ]);
     }
 }
