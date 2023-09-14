@@ -142,13 +142,15 @@ function deleteDocuments($id)
         if(Storage::exists($retrievedocpath)) {
           $path = Storage::path($retrievedocpath);
           
-          return response()->download($path.$retrievedocpath);
+          return response()->download($path,$retrievedocname,);
             
         }
         return ["status"=> "error", "message"=> "Document not found"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+    }else{
+    abort(404, 'Document not found');
+
     }
     
-    abort(404, 'Document not found');
 
   }
 
