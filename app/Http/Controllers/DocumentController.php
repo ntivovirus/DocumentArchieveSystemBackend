@@ -73,7 +73,7 @@ if($req->hasFile('DocPathHolder')) {
     $document->user_id=$user;   //TO BE ENABLED WHEN LOGIN IS ADDED
 
     if($document===''){
-      return["status"=>"error","message"=>"Please Add particulars for document"];
+      return["status"=>"error","message"=>"Please Add particulars for the document"];
 
 
     }
@@ -90,7 +90,7 @@ if($req->hasFile('DocPathHolder')) {
       }
 
   }
-    return response()->json(['status'=>'error', 'message' => 'Please select a Document to uploaded']);
+    return response()->json(["status"=>"error", "message" => "Please select a Document to uploaded"]);
 
 }
 }
@@ -135,24 +135,28 @@ function deleteDocuments($id)
    
     $document = Document::find($id); 
     
-    if ($document) {
+    if($document) {
         $retrievedocname = $document->DOCUMENT_NAME;
         $retrievedocpath = $document->DOC_PATH;
 
         if(Storage::exists($retrievedocpath)) {
           $path = Storage::path($retrievedocpath);
           
-          return response()->download($path,$retrievedocname,);
+          return response()->download($path);
             
         }
-        return ["status"=> "error", "message"=> "Document not found"];Response:: HTTP_INTERNAL_SERVER_ERROR;
-    }else{
+        else{
+            return ["status"=> "error", "message"=> "Document does not exist in our server"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+        }
+    }
+    else{
     abort(404, 'Document not found');
 
     }
     
 
   }
+
 
   function previewDocuments($id) 
   { 
@@ -172,7 +176,24 @@ function deleteDocuments($id)
     
         
         }
-        return ["status"=> "error", "message"=> "Document not found"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+        else{
+          return ["status"=> "error", "message"=> "Document not found"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+        }
+
+    //     $contents = Storage::get($retrievedocpath);
+
+    //     return[$contents];
+
+    //      $path = 'path/to/your/documents/' . $document;
+
+    // if (Storage::exists($path)) {
+    //     $content = (new Pdf())->setPdf($path)->text();
+
+    //     return response()->json(['content' => $content]);
+    // } else {
+    //     return response()->json(['error' => 'Document not found'], 404);
+    // }
+
     }
     
     abort(404, 'Document not found');
