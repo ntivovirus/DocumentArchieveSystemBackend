@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('correspondences', function (Blueprint $table) {
             $table->id();
             $table->string('CORRESPONDENCE_NAME');
-            $table->string('CORRESPONDENCE_CODENAME');
+            $table->string('CORRESPONDENCE_CODENAME')->unique();
             $table->string('CORRESPONDENCE_DESCRIPTION');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

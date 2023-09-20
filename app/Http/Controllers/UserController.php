@@ -124,15 +124,15 @@ return ["status"=>"success", "User"=>$user];Response:: HTTTP_OK;
 function updateUsers(Request $req)
  {
 
-  $getemail = $req->UserEmailHolder;
-  $searchemailexistence = User::where('email',$getemail)->first();
+  // $getemail = $req->UserEmailHolder;
+  // $searchemailexistence = User::where('email',$getemail)->first();
 
-  if($searchemailexistence){
+  // if($searchemailexistence){
 
-    return ["status"=>"error", "message" => "Email Already Used"];
+  //   return ["status"=>"error", "message" => "Email Already Used"];
 
-  }
-  else{
+  // }
+  // else{
 
     $user = User::find($req->id);
   $user->name = $req->UserFullNameHolder;
@@ -150,7 +150,7 @@ function updateUsers(Request $req)
         return ["status"=>"error", "message"=>"Error on User update"];
       }
 
-  }
+  // }
       
   }
 

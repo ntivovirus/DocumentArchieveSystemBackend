@@ -28,12 +28,19 @@ function ListCorrespondences()
 
 function AddCorrespondences(Request $req)
 {
+
+  $getCorrCodename = $req->CorrespondenceCodeNameHolder;
+  $checkcodename= Correspondence::where('CORRESPONDENCE_CODENAME',$getCorrCodename)->first();
+
+  if($checkcodename){
+    return ["status"=>"error", "message" => "Code Name Already Exist"];
+
+  }
+  else{
     $correspondence = new Correspondence;
     $correspondence->CORRESPONDENCE_NAME=$req->CorrespondenceNameHolder;
     $correspondence->CORRESPONDENCE_CODENAME = $req->CorrespondenceCodeNameHolder;
     $correspondence->CORRESPONDENCE_DESCRIPTION=$req->CorrespondenceDescriptionHolder;
-
-    
 
     $Result = $correspondence->save(); 
 
@@ -45,7 +52,8 @@ function AddCorrespondences(Request $req)
         return["status"=>"error","message"=>"Error inserting Correspondence"]; Response::HTTP_INTERNAL_SERVER_ERROR;
 
       }
-    
+
+  }
     
 }
 
