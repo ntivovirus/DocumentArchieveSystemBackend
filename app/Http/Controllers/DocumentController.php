@@ -9,11 +9,15 @@ use App\Models\User;
 use App\Models\Correspondence; 
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\PdfToText\Pdf;  // ADDED THIS LIBRARY FOR PDF MEDIA USE
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
  
 
 class DocumentController extends Controller   
 {
     //
+    // use InteractsWithMedia; // added for spatie
 
 
     function DashDocumentCount()
@@ -157,49 +161,107 @@ function deleteDocuments($id)
 
   }
 
-
-  function previewDocuments($id) 
+  function previewDocuments($id)  
   { 
    
     $document = Document::find($id);
     
     if ($document) {
         $retrievedocname = $document->DOCUMENT_NAME;
-        $retrievedocpath = $document->DOC_PATH;
+        $retrievedocpath = $document->DOC_PATH; 
 
-        if(Storage::exists($retrievedocpath)) {
+        if(Storage::exists($retrievedocpath)) { 
 
-          $filePath = storage_path($retrievedocpath);
-          $headers= header(['Content-Type','text/plain']);
+          $contents = Storage::disk('local')->get($retrievedocpath);
           
-          return response()->file($retrievedocpath);
-    
+        // $text = (new Pdf())->setPdf($contents)->text();
+        $text = (new Pdf())
+            ->setPdf(storage_path($retrievedocpath))
+            ->text();
+
+        // echo $text;
+        return[$text];
         
         }
         else{
-          return ["status"=> "error", "message"=> "Document not found"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+          return ["status"=> "error", "message"=> "Error in accessing Document"];Response:: HTTP_INTERNAL_SERVER_ERROR;
         }
 
-    //     $contents = Storage::get($retrievedocpath);
-
-    //     return[$contents];
-
-    //      $path = 'path/to/your/documents/' . $document;
-
-    // if (Storage::exists($path)) {
-    //     $content = (new Pdf())->setPdf($path)->text();
-
-    //     return response()->json(['content' => $content]);
-    // } else {
-    //     return response()->json(['error' => 'Document not found'], 404);
-    // }
+    }
+    else{
+      return ["status"=> "error", "message"=> "It seems Document is not in our space"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+    
 
     }
     
-    abort(404, 'Document not found');
 
   }
 
+
+  // function previewDocuments()
+  // { 
+  //         // $filePath = storage_path($retrievedocpath);
+  //         // return response()->file($filePath);
+  //         $file = "somanjeAfforestation.pdf";
+  //         $path = storage_path('app/BTDC-ArchivedDocuments/'.$file);
+  //         return response()->file($path);
+
+  // }
+
+  // function previewDocumentDownload() // TESTING STATIC DOWNLOAD FUNCTION BISHOP CODE
+  // {
+  //     $fileName = "somanjeAfforestation.pdf";
+  //     $filePath = storage_path('app/BTDC-ArchivedDocuments/' . $fileName);
+  
+  //     if (file_exists($filePath)) {
+  //       // Set the appropriate MIME type based on file type
+  //       $mime = mime_content_type($filePath);
+
+  //       return response()->file($filePath, [
+  //           'Content-Type' => $mime,
+  //       ]);
+  //   } else {
+  //       // File not found, return an error response or perform error handling
+  //       return response()->json(['error' => 'File not found'], 404);
+  //   }
+  // }
+
+
+  /// OG PREVIEW
+  // function previewDocuments($id)  
+  // { 
+   
+  //   $document = Document::find($id);
+    
+  //   if ($document) {
+  //       $retrievedocname = $document->DOCUMENT_NAME;
+  //       $retrievedocpath = $document->DOC_PATH; 
+
+  //       if(Storage::exists($retrievedocpath)) { 
+
+  //         $contents = Storage::disk('local')->get($retrievedocpath);
+          
+  //       $text = (new Pdf())->setPdf($contents)->text();
+
+  //       echo $text;
+  //       // return[$text];
+        
+  //       }
+  //       else{
+  //         return ["status"=> "error", "message"=> "Error in accessing Document"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+  //       }
+
+  //   }
+  //   else{
+  //     return ["status"=> "error", "message"=> "It seems Document is not in our space"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+    
+
+  //   }
+    
+
+  // }
+
+  ///// END OG PREVIEW
 
 
 

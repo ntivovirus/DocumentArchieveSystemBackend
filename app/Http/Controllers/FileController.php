@@ -75,7 +75,7 @@ function updateFiles(Request $req,$id)
   $result = $file->save();
 
     if($result) {
-      return ["status"=>"success", "message"=>"File Updated successfully"];
+      return ["status"=>"success", "message"=>"File Updated successfully"]; 
     } 
       else {
         return ["status"=>"error", "message"=>"Error on File update"];

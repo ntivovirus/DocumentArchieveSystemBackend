@@ -109,14 +109,16 @@ class UserController extends Controller
 
     function ListUsers()
     {
-        return User::orderByDesc('id')->get();
+        return User::orderByDesc('id')->get();    
     }
 
-    function fetchUserDetails($id)
+    function fetchUserDetails($id) 
 {
 
 $user = User::find($id);
-return ["status"=>"success", "User"=>$user];Response:: HTTTP_OK;
+// return ["status"=>"success", "User"=>$user];Response:: HTTTP_OK;
+return ["User"=>$user];Response:: HTTTP_OK;
+
 
 }
 
@@ -167,6 +169,33 @@ function updateUsers(Request $req)
         {
           return ["status"=> "error", "message"=> "Error on Deleting User"];Response:: HTTP_INTERNAL_SERVER_ERROR;
         }
+  }
+
+  function updateOwnName(Request $req, $id){
+
+    $user = User::find($id);
+
+    if ($user) {
+      $user-> name = $req->updatenameholder;
+      $user->save();
+    }
+    else{
+      return ["status"=>"error", "message"=>"User not found"];
+    }
+    
+
+  }
+
+  function updateOwnPassword(){
+    $user = User::find($id);
+
+    if($user){
+
+    }
+    else{
+      return ["status"=>"error", "message"=>"User not found"];
+    }
+
   }
 
      

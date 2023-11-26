@@ -43,6 +43,12 @@ Route::get("getUserupdatedetail/{id}",[UserController::class,'fetchUserDetails']
 Route::get("testchild/{id}",[CorrespondenceController::class,'test']);
 // Route::get("testchild2/{id},{name}",[CorrespondenceController::class,'test2']);
 // Route::get("testchild2/{nam}",[CorrespondenceController::class,'test2']);
+Route::put("updateOwnNameRoute/{id}",[UserController::class,'updateOwnName']);
+Route::put("updateOwnPasswordRoute/{id}",[UserController::class,'updateOwnPassword']);
+
+
+
+
 
 
 
@@ -123,7 +129,11 @@ Route::post("testpdf",[DocumentController::class,'testUpload']);
 Route::delete("deleteDocumentRoute/{id?}",[DocumentController::class,'deleteDocuments']);
 Route::get("getdocumentupdatedetail/{id}",[DocumentController::class,'fetchDocumentDetails']);
 Route::get("downloadDocumentRoute/{id}",[DocumentController::class,'downloadDocuments']);
-Route::get("previewDocumentRoute/{id}",[DocumentController::class,'previewDocuments']);
+// Route::get("previewDocumentRoute/{id}",[DocumentController::class,'previewDocuments']); // OG PREVIEW ROUTE
+Route::get("previewDocumentRoute/{id}", [DocumentController::class,'previewDocuments']);
+Route::get("previewDocumentRouteDownload", [DocumentController::class,'previewDocumentDownload']); // TESTING DOWNLOAD WORKING BUT NEEDS TO BE UPDATED
+
+
 
 
 // Route::get("GetFileCorrespondenceRoute/{id}",[CorrespondenceController::class,'GetAddFileCorrespondences']);
