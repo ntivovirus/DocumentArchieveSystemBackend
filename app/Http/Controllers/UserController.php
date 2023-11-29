@@ -178,11 +178,20 @@ function updateUsers(Request $req)
     if ($user) {
       $user-> name = $req->updatenameholder;
       $user->save();
+      return ["status"=>"success", "message"=>"Name successfully updated"];
+
     }
     else{
       return ["status"=>"error", "message"=>"User not found"];
     }
     
+
+  }
+
+  function FetchuserDetailsSettings($id){
+    $user= User::find($id);
+    
+
 
   }
 
