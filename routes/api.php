@@ -45,7 +45,7 @@ Route::get("testchild/{id}",[CorrespondenceController::class,'test']);
 // Route::get("testchild2/{nam}",[CorrespondenceController::class,'test2']);
 Route::put("updateOwnNameRoute/{id}",[UserController::class,'updateOwnName']);
 Route::put("updateOwnPasswordRoute/{id}",[UserController::class,'updateOwnPassword']);
-
+ 
 
 
 

@@ -195,17 +195,54 @@ function updateUsers(Request $req)
 
   }
 
-  function updateOwnPassword(){
+  function updateOwnPassword(Request $req, $id){
     $user = User::find($id);
 
     if($user){
+      $dbhashedpassword = $user->password;
+      $newpassword = $req->newpasswordholder;
+      $confirmpassword = $req->confirmpasswordholder;
+      $oldpassword = $req->oldpasswordholder;
 
-    }
-    else{
-      return ["status"=>"error", "message"=>"User not found"];
+      if($oldpassword =='' || $newpassword =='' || $confirmpassword ==''){
+      return ["status"=>"error", "message"=>"Password fields cannot be empty"];
+      }
+      else{
+        if($newpassword == $confirmpassword){
+          if($checkoldandnewpassword = Hash::check($oldpassword,$dbhashedpassword)){
+            //input update password code here
+
+            $user->password = Hash::make($confirmpassword);
+            $result = $user->save();
+
+            if($result){
+            return ["status"=>"success", "message"=>"Password updated successfully"];
+            }
+            else{
+            return ["status"=>"error", "message"=>"error on password update"];
+
+            }
+
+           }
+           else{
+                 return ["status"=>"error", "message"=>"Please input the previous correct old password"];
+               }
+        }
+        else{
+              return ["status"=>"error", "message"=>"New and Confirm password fields do not match, please make sure they are exact"];
+        }
+
+
+       
+
     }
 
   }
+  else{
+    return ["status"=>"error", "message"=>"User not found"];
+  }
+
+}
 
      
       
