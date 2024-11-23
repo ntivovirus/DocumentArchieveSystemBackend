@@ -6,6 +6,7 @@ use App\Http\Controllers\CorrespondenceController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\UserController; 
+use App\Mail\ResetPasswordMail;
 
 
 
@@ -33,7 +34,7 @@ Route::group(['middleware'=> 'auth:sanctum'], function() {
 
 
     
-//USER ROUTES 
+//USER ROUTES  
 Route::post("AddUserRoute",[UserController::class,'AddUsers']);
 Route::get("ListUserRoute",[UserController::class,'ListUsers']);
 Route::put("updateUserRoute/{id}",[UserController::class,'updateUsers']);
@@ -152,5 +153,24 @@ Route::get("previewDocumentRouteDownload", [DocumentController::class,'previewDo
 
 //LOGIN ROUTE OUTSIDE OF GROUP MIDDLEWARE
 Route::post("LoginRoute",[UserController::class,'Login']);
+
+
+
+//EMAIL ROUTE 
+
+Route::get("sendEmailTest",function(){
+    $mailData = [
+        "name" => "Test NAME",
+        "Dob" => "01/01/2024"
+      ];
+      Mail::to("to@example.com")->send(new ResetPasswordMail($mailData));
+      dd("Mail sent successfully");
+        }); 
+
+//END EMAIL ROUTE 
+
+
+
+
 
 

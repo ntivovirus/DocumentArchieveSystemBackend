@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Spatie\PdfToText\Pdf;  // ADDED THIS LIBRARY FOR PDF MEDIA USE
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+
+// use Illuminate\Support\Facades\Response;
  
 
 class DocumentController extends Controller   
@@ -161,41 +163,49 @@ function deleteDocuments($id)
 
   }
 
-  function previewDocuments($id)  
-  { 
+  // function previewDocuments($id)  
+  // { 
    
-    $document = Document::find($id);
+  //   $document = Document::find($id);
     
-    if ($document) {
-        $retrievedocname = $document->DOCUMENT_NAME;
-        $retrievedocpath = $document->DOC_PATH; 
+  //   if ($document) {
+  //       $retrievedocname = $document->DOCUMENT_NAME;
+  //       $retrievedocpath = $document->DOC_PATH; 
 
-        if(Storage::exists($retrievedocpath)) { 
+  //       if(Storage::exists($retrievedocpath)) { 
 
-          $contents = Storage::disk('local')->get($retrievedocpath);
-          
-        // $text = (new Pdf())->setPdf($contents)->text();
-        $text = (new Pdf())
-            ->setPdf(storage_path($retrievedocpath))
-            ->text();
+  //         // $filePath = storage_path('app/BTDC-ArchivedDocuments/iFal9c0cNbKZxL4Jul1T9dOidJ73KIlMzI1pUbIi.pdf');
 
-        // echo $text;
-        return[$text];
+  //          $filePath = storage_path('app/'.$retrievedocpath);
+  //          return ["DocPathFromAPI"=>$filePath];Response:: HTTTP_OK;
+  //         // return response()->file($filePath);
+
+  //         // return Response::file($filePath, [
+  //         //     'Content-Type' => 'application/pdf',
+  //         //     'Content-Disposition' => "inline; filename=$retrievedocname"
+  //         // ]);
+
+  //         // $fileContents = Storage::get($retrievedocpath);
+  //         // $response = Response::make($fileContents, 200);
+  //         // $response->header('Content-Type', 'application/pdf');
+  
+  //         // return $response;
+
         
-        }
-        else{
-          return ["status"=> "error", "message"=> "Error in accessing Document"];Response:: HTTP_INTERNAL_SERVER_ERROR;
-        }
+  //       }
+  //       else{
+  //         return ["status"=> "error", "message"=> "Error in accessing Document"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+  //       }
 
-    }
-    else{
-      return ["status"=> "error", "message"=> "It seems Document is not in our space"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+  //   }
+  //   else{
+  //     return ["status"=> "error", "message"=> "It seems Document is not in our space"];Response:: HTTP_INTERNAL_SERVER_ERROR;
     
 
-    }
+  //   }
     
 
-  }
+  // }
 
 
   // function previewDocuments()
@@ -228,38 +238,38 @@ function deleteDocuments($id)
 
 
   /// OG PREVIEW
-  // function previewDocuments($id)  
-  // { 
+  function previewDocuments($id)  
+  { 
    
-  //   $document = Document::find($id);
+    $document = Document::find($id);
     
-  //   if ($document) {
-  //       $retrievedocname = $document->DOCUMENT_NAME;
-  //       $retrievedocpath = $document->DOC_PATH; 
+    if ($document) {
+        $retrievedocname = $document->DOCUMENT_NAME;
+        $retrievedocpath = $document->DOC_PATH; 
 
-  //       if(Storage::exists($retrievedocpath)) { 
+        if(Storage::exists($retrievedocpath)) { 
 
-  //         $contents = Storage::disk('local')->get($retrievedocpath);
+          $contents = Storage::disk('local')->get($retrievedocpath);
           
-  //       $text = (new Pdf())->setPdf($contents)->text();
+        $text = (new Pdf())->setPdf($contents)->text();
 
-  //       echo $text;
-  //       // return[$text];
+        echo $text;
+        // return[$text];
         
-  //       }
-  //       else{
-  //         return ["status"=> "error", "message"=> "Error in accessing Document"];Response:: HTTP_INTERNAL_SERVER_ERROR;
-  //       }
+        }
+        else{
+          return ["status"=> "error", "message"=> "Error in accessing Document"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+        }
 
-  //   }
-  //   else{
-  //     return ["status"=> "error", "message"=> "It seems Document is not in our space"];Response:: HTTP_INTERNAL_SERVER_ERROR;
+    }
+    else{
+      return ["status"=> "error", "message"=> "It seems Document is not in our space"];Response:: HTTP_INTERNAL_SERVER_ERROR;
     
 
-  //   }
+    }
     
 
-  // }
+  }
 
   ///// END OG PREVIEW
 

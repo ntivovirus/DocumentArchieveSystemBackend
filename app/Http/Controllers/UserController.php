@@ -244,6 +244,16 @@ function updateUsers(Request $req)
 
 }
 
+function ResetPasswordEmail(){
+  $mailData = [
+    "name" => "Test NAME",
+    "Dob" => "01/01/2024"
+  ];
+
+  Mail::to("to@example.com")->send(new ResetPasswordEmail($mailData));
+  dd("Mail sent successfully");
+}
+
      
       
 }

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; 
 use Illuminate\Database\Eloquent\SoftDeletes; // FOR SOFTDELETE 
+use Illuminate\Contracts\Auth\CanResetPassword; // ADDED FOR PASSWORD RESET
+// use Illuminate\Auth\Passwords\CanResetPassword; 
 
 class User extends Authenticatable
 {

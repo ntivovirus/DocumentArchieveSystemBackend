@@ -1,10 +1,10 @@
 <?php
 
-return [
+return [ 
 
     /*
     |--------------------------------------------------------------------------
-    | Default Mailer
+    | Default Mailer 
     |--------------------------------------------------------------------------
     |
     | This option controls the default mailer that is used to send any email
@@ -91,9 +91,9 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'from@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+    ], 
 
     /*
     |--------------------------------------------------------------------------
